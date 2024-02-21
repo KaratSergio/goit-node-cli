@@ -1,6 +1,12 @@
 import { promises as fs } from "fs";
-import { nanoid } from "nanoid";
+import shortid from "shortid";
+
 import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const contactsPath = path.join(__dirname, "db", "contacts.json");
 
@@ -25,12 +31,17 @@ const getContactById = async (id) => {
 const removeContact = async (id) => {
   try {
     let allContacts = await listContacts();
+    const removedContact = allContacts.find((contact) => contact.id === id);
+    if (!removedContact) {
+      return `Contact with id ${id} does not exist.`;
+    }
     allContacts = allContacts.filter((contact) => contact.id !== id);
     await fs.writeFile(
       contactsPath,
       JSON.stringify(allContacts, null, 2),
       "utf-8"
     );
+    return `Contact '${removedContact.name}' has been successfully removed.`;
   } catch (error) {
     throw new Error(`Error removing contact: ${error.message}`);
   }
@@ -39,7 +50,7 @@ const removeContact = async (id) => {
 const addContact = async (name, email, phone) => {
   try {
     let allContacts = await listContacts();
-    const newContact = { id: nanoid(), name, email, phone };
+    const newContact = { id: shortid.generate(), name, email, phone };
     allContacts.push(newContact);
     await fs.writeFile(
       contactsPath,

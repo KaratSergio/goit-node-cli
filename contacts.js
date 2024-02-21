@@ -33,7 +33,7 @@ const removeContact = async (id) => {
     let allContacts = await listContacts();
     const removedContact = allContacts.find((contact) => contact.id === id);
     if (!removedContact) {
-      return `Contact with id ${id} does not exist.`;
+      return `\x1b[31mContact with id ${id} does not exist.\x1b[0m`;
     }
     allContacts = allContacts.filter((contact) => contact.id !== id);
     await fs.writeFile(
@@ -41,7 +41,7 @@ const removeContact = async (id) => {
       JSON.stringify(allContacts, null, 2),
       "utf-8"
     );
-    return `Contact '${removedContact.name}' has been successfully removed.`;
+    return `\x1b[32mContact '${removedContact.name}' has been successfully removed.\x1b[0m`;
   } catch (error) {
     throw new Error(`Error removing contact: ${error.message}`);
   }

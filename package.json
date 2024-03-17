@@ -1,23 +1,21 @@
 {
-  "name": "node",
-  "version": "1.0.0",
-  "description": "node-hw-1 FSON94",
-  "main": "index.js",
+  "name": "vanilla-app-template",
+  "private": true,
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index",
-    "start:dev": "nodemon index"
-  },
-  "keywords": [],
-  "author": "Karat_Sergio",
-  "license": "ISC",
-  "dependencies": {
-    "colors": "^1.4.0",
-    "commander": "^12.0.0",
-    "nanoid": "^5.0.6"
+    "dev": "vite",
+    "build": "vite build --base=/goit-node-cli/",
+    "preview": "vite preview"
   },
   "devDependencies": {
-    "nodemon": "^3.0.3"
+    "vite": "^4.5.2",
+    "glob": "^8.1.0"
+  },
+  "author": "Alexander Repeta <alexander.repeta@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "vite-plugin-full-reload": "^1.0.5",
+    "vite-plugin-html-inject": "^1.0.1"
   }
 }
